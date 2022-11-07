@@ -1,0 +1,3 @@
+[submodule "unified-av-data-loader"]
+	path = unified-av-data-loader
+	url = https://github.com/NVlabs/trajdata.git

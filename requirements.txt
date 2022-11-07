@@ -1,0 +1,49 @@
+numpy==1.22.3
+tqdm==4.64.0
+matplotlib==3.5.2
+dill==0.3.5.1
+pandas==1.4.3
+seaborn==0.11.2
+notebook==6.2.0
+pyarrow==8.0.0
+black==22.10.0
+isort==5.10.1
+pytest==7.1.2
+pytest-xdist==2.5.0
+zarr==2.12.0
+
+--extra-index-url https://download.pytorch.org/whl/cu113
+torch==1.12.0+cu113
+
+kornia==0.6.5
+pyquaternion==0.9.9
+orjson==3.5.1
+ncls==0.0.57
+pathos==0.2.9
+pykalman==0.9.5
+wandb==0.12.21
+
+# Installing nuscenes-devkit
+opencv-python==4.6.0.66
+nuscenes-devkit==1.1.9
+
+# Installing l5kit's dependencies (see note in the README).
+imageio==2.19.5
+opencv-contrib-python-headless==4.6.0.66
+protobuf==3.19.4
+pymap3d==2.9.1
+transforms3d==0.3.1
+pyyaml==6.0
+ptable==0.9.2
+shapely==1.8.2
+typing_extensions==4.3.0
+bokeh==2.4.3
+gym==0.25.0
+
+# The reason why we separately install l5kit is:
+# l5kit is currently not maintained, but it requires numpy~=1.19.0 for some reason, 
+# which means installing it normally will downgrade numpy from its usual version (1.22.3) to 1.19.5.
+# Normally this is fine, but other packages (e.g., torch) in this
+# were built above according to numpy being in the 1.2X
+# range, and will crash on import if numpy is not the correct version.
+# Accordingly, we first install l5kit's dependencies and then l5kit at the end.
