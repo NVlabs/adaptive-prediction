@@ -38,7 +38,7 @@ If you now check `pip list`, you should see the above dependencies installed as 
 
 ### Data Setup ###
 
-We use [trajdata](https://gitlab-master.nvidia.com/nvr-av/unified-av-data-loader) to manage and access data in this project, please follow the dataset setup instructions in its README (particularly for ETH/UCY Pedestrians, nuScenes, and Lyft Level 5).
+We use [trajdata](https://github.com/NVlabs/trajdata) to manage and access data in this project, please follow the dataset setup instructions in its README (particularly for ETH/UCY Pedestrians, nuScenes, and Lyft Level 5).
 
 After, please execute `preprocess_challenge_splits.py` (make sure to change Lines 16 and 17 for your environment) within `experiments/nuScenes/` (this will make note of the available scenes within the nuScenes dataset, according to the nuScenes prediction challenge, for later use in training).
 
