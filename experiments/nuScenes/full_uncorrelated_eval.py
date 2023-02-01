@@ -1,3 +1,18 @@
+# SPDX-FileCopyrightText: Copyright (c) 2023 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import json
 import os
 import re
@@ -338,8 +353,8 @@ online_eval_dataset = UnifiedDataset(
     future_sec=(prediction_sec, prediction_sec),
     agent_interaction_distances=attention_radius,
     incl_robot_future=hyperparams["incl_robot_node"],
-    incl_map=hyperparams["map_encoding"],
-    map_params=map_params,
+    incl_raster_map=hyperparams["map_encoding"],
+    raster_map_params=map_params,
     only_predict=[AgentType.VEHICLE],
     no_types=[AgentType.UNKNOWN],
     num_workers=0,
@@ -356,8 +371,8 @@ batch_eval_dataset = UnifiedDataset(
     future_sec=(prediction_sec, prediction_sec),
     agent_interaction_distances=attention_radius,
     incl_robot_future=hyperparams["incl_robot_node"],
-    incl_map=hyperparams["map_encoding"],
-    map_params=map_params,
+    incl_raster_map=hyperparams["map_encoding"],
+    raster_map_params=map_params,
     only_predict=[AgentType.VEHICLE],
     no_types=[AgentType.UNKNOWN],
     num_workers=0,
@@ -386,6 +401,10 @@ def plot_outputs(
     batch: AgentBatch = eval_dataset.get_collate_fn(pad_format="right")(
         [eval_dataset[dataset_idx]]
     )
+    
+    fig, ax = plt.subplots()
+    trajdata_vis.plot_agent_batch(batch, batch_idx=0, ax=ax, show=False, close=False)
+
     with torch.no_grad():
         # predictions = model.predict(batch,
         #                             z_mode=True,
@@ -401,8 +420,6 @@ def plot_outputs(
 
     batch.to("cpu")
 
-    fig, ax = plt.subplots()
-    trajdata_vis.plot_agent_batch(batch, batch_idx=0, ax=ax, show=False, close=False)
     visualization.visualize_distribution(ax, pred_dists, batch_idx=0)
 
     # batch_eval: Dict[str, torch.Tensor] = evaluation.compute_batch_statistics_pt(

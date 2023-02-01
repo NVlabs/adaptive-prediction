@@ -17,7 +17,7 @@ git submodule update # Fetching all of the data from the submodules at the speci
 ### Environment Setup ###
 First, we'll create a conda environment to hold the dependencies.
 ```sh
-conda create --name adaptive python=3.8 -y
+conda create --name adaptive python=3.9 -y
 source activate adaptive
 pip install -r requirements.txt
 
@@ -77,11 +77,11 @@ To quantitatively evaluate a trained model's adaptive prediction performance in 
 ## Citation ##
 If you use this work in your own research or wish to refer to the paper's results, please use the following BibTeX entries.
 ```bibtex
-@misc{IvanovicHarrisonEtAl2022,
+@inproceedings{IvanovicHarrisonEtAl2023,
   author       = {Ivanovic, Boris and Harrison, James and Pavone, Marco},
   title        = {Expanding the Deployment Envelope of Behavior Prediction via Adaptive Meta-Learning},
-  year         = {2022},
-  booktitle    = {{arXiv}},
+  year         = {2023},
+  booktitle    = {{IEEE International Conference on Robotics and Automation (ICRA)}},
   url          = {https://arxiv.org/abs/2209.11820}
 }
 

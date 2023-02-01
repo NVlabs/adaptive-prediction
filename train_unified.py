@@ -1,3 +1,18 @@
+# SPDX-FileCopyrightText: Copyright (c) 2023 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+# http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import json
 import os
 import pathlib
@@ -178,8 +193,8 @@ def train(rank, args):
         future_sec=(0.1, hyperparams["prediction_sec"]),
         agent_interaction_distances=attention_radius,
         incl_robot_future=hyperparams["incl_robot_node"],
-        incl_map=hyperparams["map_encoding"],
-        map_params=map_params,
+        incl_raster_map=hyperparams["map_encoding"],
+        raster_map_params=map_params,
         only_predict=[AgentType.VEHICLE, AgentType.PEDESTRIAN],
         no_types=[AgentType.UNKNOWN],
         augmentations=augmentations if len(augmentations) > 0 else None,
@@ -212,8 +227,8 @@ def train(rank, args):
         future_sec=(hyperparams["prediction_sec"], hyperparams["prediction_sec"]),
         agent_interaction_distances=attention_radius,
         incl_robot_future=hyperparams["incl_robot_node"],
-        incl_map=hyperparams["map_encoding"],
-        map_params=map_params,
+        incl_raster_map=hyperparams["map_encoding"],
+        raster_map_params=map_params,
         only_predict=[AgentType.VEHICLE, AgentType.PEDESTRIAN],
         no_types=[AgentType.UNKNOWN],
         num_workers=hyperparams["preprocess_workers"],
