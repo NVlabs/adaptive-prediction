@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import numpy as np
 import torch
 import torch.distributions as td
 
@@ -204,3 +203,20 @@ class GMM2D(td.MixtureSameFamily):
 
     def get_covariance_matrix(self):
         return self.component_distribution.covariance_matrix
+
+    def quantile(self, x):
+        if self._num_component == 1:
+            if self._validate_args:
+                self._validate_sample(x)
+            x = self._pad(x)
+
+            # See https://stats.stackexchange.com/a/127486 for the origin of this formula.
+            mahalanobis_values = td.multivariate_normal._batch_mahalanobis(self.L, x - self.mus)
+            return torch.exp(-mahalanobis_values/2.0)
+        else:
+            # We have to do a little sampling-based quantile estimation here
+            # (integration is too slow).
+            x_logpdf = self.log_prob(x)
+            sampled_logpdfs = self.log_prob(self.sample((2048,)))
+
+            return (sampled_logpdfs > x_logpdf).to(float).mean(dim=0)
