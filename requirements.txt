@@ -19,7 +19,7 @@ pyquaternion==0.9.9
 orjson==3.5.1
 ncls==0.0.57
 pathos==0.2.9
-pykalman==0.9.5
+pykalman-bardo==0.9.7
 wandb==0.12.21
 
 # Installing nuscenes-devkit
